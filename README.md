@@ -63,7 +63,9 @@ $combined = $csvFiles | ForEach-Object { Import-Csv $_.FullName }
 $combined | Export-Csv '\\server\securebootaudit\SecureBootCert_Audit.csv' -NoTypeInformation -Encoding UTF8
 ```
 
-When reviewing the combined report, prioritize: **NON_COMPLIANT** (requires remediation) → **SECURE_BOOT_DISABLED** → **ERROR** → **NOT_APPLICABLE** → **COMPLIANT**.
+When reviewing the combined report, prioritize:
+
+**NON_COMPLIANT** (requires remediation) → **SECURE_BOOT_DISABLED** → **ERROR** → **NOT_APPLICABLE** → **COMPLIANT**
 
 ## Deployment notes
 
