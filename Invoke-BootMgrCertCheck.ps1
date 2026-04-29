@@ -1,6 +1,8 @@
 #Requires -Version 5.1
 #Requires -RunAsAdministrator
 
+using namespace System.Security.Cryptography.X509Certificates
+
 <#
 .SYNOPSIS
     Checks whether the EFI partition boot manager is signed by Windows UEFI CA 2023.
@@ -128,12 +130,12 @@ function Get-BootManagerSignature {
             return $result
         }
 
-        $cert = [System.Security.Cryptography.X509Certificates.X509Certificate]::CreateFromSignedFile($efiPath)
-        $cert2 = [System.Security.Cryptography.X509Certificates.X509Certificate2]::new($cert)
+        $cert = [X509Certificate]::CreateFromSignedFile($efiPath)
+        $cert2 = [X509Certificate2]::new($cert)
 
         $result.Issuer = $cert2.Issuer
 
-        # Matches the Issuer field of the signing cert. If Microsoft adds an intermediate CA, this may silently return NON_COMPLIANT.
+        # Note: adding an intermediate CA may silently return NON_COMPLIANT.
         $result.IsSigned2023 = $cert2.Issuer -match [regex]::Escape($CERT_WIN_UEFI_2023)
     }
     catch {
