@@ -1,6 +1,6 @@
 # Invoke-BootMgrCertCheck
 
-Checks whether the EFI boot manager binary on a Windows 11 endpoint is signed by the **Windows UEFI CA 2023** certificate. Designed for fleet deployment via ManageEngine Endpoint Central.
+Checks whether the EFI boot manager binary on a Windows 11 endpoint is signed by the **Windows UEFI CA 2023** certificate. Designed for deployment via ManageEngine Endpoint Central or any endpoint management tool that can run a PowerShell script as Administrator.
 
 ## Background
 
@@ -78,7 +78,7 @@ When reviewing the combined report, prioritize:
 ## Known limitations
 
 - **Issuer matching:** If Microsoft introduces an intermediate CA in a future update, the compliance check may return `NON_COMPLIANT` rather than an error. Acceptable for the current certificate structure.
-- **Firmware variable removal:** Some firmware removes Secure Boot variables entirely when disabled rather than setting them to false, causing `Confirm-SecureBootUEFI` to throw a `GetFWVarFailed` exception. This surfaces as `ERROR` rather than `SECURE_BOOT_DISABLED`. Out of scope for the target environment (Windows 11 Dell endpoints).
+- **Firmware variable removal:** Some firmware removes Secure Boot variables entirely when disabled rather than setting them to false, causing `Confirm-SecureBootUEFI` to throw a `GetFWVarFailed` exception. This surfaces as `ERROR` rather than `SECURE_BOOT_DISABLED`. Out of scope for the target environment (Windows 11 physical endpoints).
 - **Binary scope:** Only checks `bootmgfw.efi` on the EFI partition. Does not check the staged binary at `C:\Windows\Boot\EFI_EX\bootmgfw_EX.efi`.
 
 ## Related
